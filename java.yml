@@ -1,0 +1,11 @@
+---
+- name: web
+  hosts: web
+  become: true
+  tasks:
+    - name: install openjdk-8-jdk
+      apt:
+        name: openjdk-8-jdk
+        state: present
+#How to run the playbook
+# ansible-playbook <filename.yml>
