@@ -23,7 +23,7 @@ pipeline
             // url is the URL of the repository
             steps
             {
-                git branch: 'main', credentialsId: 'github', url: 'https://github.com/dassudip2001/spring-boot-api.git'
+                git branch: 'main', credentialsId: 'github', url: 'https://github.com/dassudip2001/website-iitr-project.git'
             }
         }
 
