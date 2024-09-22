@@ -23,7 +23,7 @@ pipeline
             // url is the URL of the repository
             steps
             {
-                git branch: 'main', credentialsId: 'github', url: 'https://github.com/dassudip2001/website-iitr-project.git'
+                git branch: 'master', credentialsId: 'github', url: 'https://github.com/dassudip2001/website-iitr-project.git'
             }
         }
 
