@@ -1,45 +1,36 @@
-pipeline
-{
+pipeline {
     agent any
-    environment
-    {
+    environment {
         APP_NAME = "sudipdas2001/website"
         RELEASE = "1.0.0"
         DOCKER_USER = 'sudipdas2001'
         DOCKER_PASS = 'dockerhub'
-        IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+        IMAGE_NAME = "${DOCKER_USER}/${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
     }
 
-    stages
-    {
+    stages {
         // Checkout the code from the repository
-        stage('Checkout')
-        {
-            // Checkout the code from the repository
-            // credentialsId is the id of the credentials added in Jenkins
-            // url is the URL of the repository
-            steps
-            {
+        stage('Checkout') {
+            steps {
                 git branch: 'main', credentialsId: 'github', url: 'https://github.com/dassudip2001/website-iitr-project.git'
             }
         }
-    }
 
-    stage('Docker')
-        {
+        // Docker build and push
+        stage('Docker') {
             steps {
                 script {
-                    docker.withRegistry('',DOCKER_PASS) {
-                        docker_image = docker.build "${IMAGE_NAME}"
-                    }
+                    // Using Docker credentials to login and push images
+                    docker.withRegistry('', 'dockerhub_credentials') {
+                        def docker_image = docker.build("${IMAGE_NAME}")
 
-                    docker.withRegistry('',DOCKER_PASS) {
+                        // Pushing both versioned and 'latest' tagged images
                         docker_image.push("${IMAGE_TAG}")
                         docker_image.push('latest')
                     }
                 }
             }
         }
-    
+    }
 }
