@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
     - name: website
-      image: sudipdas2001/website
+      image: sudipdas2001/website-iit:1.0.0-8
       resources:
         limits:
           memory: "128Mi"
